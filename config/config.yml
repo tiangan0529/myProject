@@ -1,0 +1,55 @@
+excel:
+  file: cases.xlsx
+
+logger:
+  name: tiangan
+  file: test.log
+  logger_level: 'DEBUG'
+  stream_level: 'DEBUG'
+  file_level: 'INFO'
+
+mysql:
+  host: '47.97.162.22'
+  port: 3306
+  user: 'sqlLct'
+  password: 'Lct9upKILy7w1122E!@#$%^'
+  charset: 'utf8'
+  cursorclass: DictCursor
+
+http:
+  base_url1: http://test.api.inglemirepharmmall.com
+  base_url2: http://47.97.162.22:8011
+  base_url3: http://testadmin2.inglemirepharmmall.com
+
+L0_user_info:
+  loginUsername: 17682344529
+  loginPassword: "dc483e80a7a0bd9ef71d8cf973673924"
+
+L1_user_info:
+  loginUsername: 17682344523
+  loginPassword: "dc483e80a7a0bd9ef71d8cf973673924"
+
+L2_user_info:
+  loginUsername: 17682344522
+  loginPassword: "dc483e80a7a0bd9ef71d8cf973673924"
+
+L3_user_info:
+  loginUsername: 17682344521
+  loginPassword: "dc483e80a7a0bd9ef71d8cf973673924"
+
+lb_user_info:
+  loginUsername: 17682344521
+  loginPassword: "6846860684f05029abccc09a53cd66f1"
+
+
+coupon:
+  coupon_id1: 10093
+  coupon_id2: 10094
+  coupon_id3: 10095
+
+
+email:
+  smtp_server: smtp.163.com
+  smtp_sender: tiangan_yingshu@163.com
+  smtp_sender_password: PBZTRQRPJPVMJGDU
+  smtp_receiver: tiangan_529@163.com
