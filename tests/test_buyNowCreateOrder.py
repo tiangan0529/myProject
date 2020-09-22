@@ -165,7 +165,7 @@ class TestBuyNowCreateOrder(unittest.TestCase):
                     res['data']['orderId'])
                 order_info = self.db.query_db(sql)
 
-                logger.info('订单的原价格：{}'.format(self.price_market))
+                logger.debug('订单的原价格：{}'.format(self.price_market))
 
                 # 判断商品是否可用优惠券
                 if 'memberCouponId' in test_info['data'] and test_info['if_coupon'] == 1:
@@ -175,34 +175,35 @@ class TestBuyNowCreateOrder(unittest.TestCase):
                         .format(data['memberCouponId'])
                     # 分摊后优惠券面值
                     coupon_worth = self.db.query_db(sql)['member_coupon_worth'] / data['quantity']
-                    logger.info('订单的优惠券：{}'.format(coupon_worth))
+                    logger.debug('订单的优惠券：{}'.format(coupon_worth))
 
                     # 返利
                     rebate_account = ((Decimal(str(self.price_market)) - Decimal(str(coupon_worth)))) / Decimal(
                         str(self.price_market)) * self.rebate
-                    logger.info('订单的返利：{}'.format(rebate_account))
+                    logger.debug('订单的返利：{}'.format(rebate_account))
                     # L0 会员
                     if test_info['user_level'] == 'L0':
                         pay_money = (self.price_market - coupon_worth) * data['quantity']
-                        logger.info('L0用户计算后的订单实付金额为：{}; 优惠券金额{}'.format(pay_money, coupon_worth * data['quantity']))
+                        logger.debug('L0用户计算后的订单实付金额为：{}; 优惠券金额{}'.format(pay_money, coupon_worth * data['quantity']))
                         self.assertEqual(Decimal(str(order_info['order_pay_money'])), Decimal(str(pay_money)))
+                        logger.info('订单金额校验通过')
                     # L1 会员
                     elif test_info['user_level'] == 'L1':
                         pay_money = (Decimal(str(self.price_market)) - Decimal(str(coupon_worth)) - (rebate_account * Decimal(0.5))) * data['quantity']
-                        logger.info('订单实际金额：{}; 订单预期金额：{}'.format(order_info['order_pay_money'], pay_money))
+                        logger.debug('订单实际金额：{}; 订单预期金额：{}'.format(order_info['order_pay_money'], pay_money))
                         self.assertTrue(
                             abs((Decimal(str(order_info['order_pay_money'])) - Decimal(str(pay_money)).quantize(Decimal('0.0000')))) < 0.1)
                         logger.info('订单金额校验通过')
                     # L2 会员
                     elif test_info['user_level'] == 'L2':
                         pay_money = (Decimal(str(self.price_market)) - Decimal(str(coupon_worth)) - (rebate_account * Decimal(0.75))) * data['quantity']
-                        logger.info('订单实际金额：{}; 订单预期金额：{}'.format(order_info['order_pay_money'], pay_money))
+                        logger.debug('订单实际金额：{}; 订单预期金额：{}'.format(order_info['order_pay_money'], pay_money))
                         self.assertTrue(
                             abs((Decimal(str(order_info['order_pay_money'])) - Decimal(str(pay_money)).quantize(Decimal('0.0000')))) < 0.1)
                         logger.info('订单金额校验通过')                    # L3 会员
                     else:
                         pay_money = (Decimal(str(self.price_market)) - Decimal(str(coupon_worth)) - (rebate_account * Decimal(0.85))) * data['quantity']
-                        logger.info('订单实际金额：{}; 订单预期金额：{}'.format(order_info['order_pay_money'], pay_money))
+                        logger.debug('订单实际金额：{}; 订单预期金额：{}'.format(order_info['order_pay_money'], pay_money))
                         self.assertTrue(
                             abs((Decimal(str(order_info['order_pay_money'])) - Decimal(str(pay_money)).quantize(Decimal('0.0000')))) < 0.1)
                         logger.info('订单金额校验通过')

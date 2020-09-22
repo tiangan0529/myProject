@@ -33,7 +33,7 @@ class TestAddGoods(unittest.TestCase):
 
         # 访问接口
         res = visit(
-            url= hd.yaml['http']['base_url2']+test_info['url'],
+            url= hd.yaml['http']['base_url1']+test_info['url'],
             method= test_info['method'],
             headers= headers,
             data= data

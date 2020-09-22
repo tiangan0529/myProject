@@ -47,7 +47,7 @@ class TestGetGoodsListByCouponId(unittest.TestCase):
         logger.info("==================================开始执行第{}条测试用例==================================".format(test_info['case_id']))
 
         res = visit(
-            url= hd.yaml['http']['base_url2']+ test_info['url'],
+            url= hd.yaml['http']['base_url1']+ test_info['url'],
             method= test_info['method'],
             headers= headers,
             params= data
