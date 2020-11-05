@@ -26,9 +26,9 @@ class TestGetMyStoreList(unittest.TestCase):
         self.db.close()
 
     @ddt.data(*test_data)
-    def test_addGoods(self,test_info):
+    def test_getMyStoreList(self,test_info):
         '''
-        加入购物车接口
+        获取门店列表
         :param test_info:用例数据
         '''
         # 替换参数化数据
@@ -36,8 +36,6 @@ class TestGetMyStoreList(unittest.TestCase):
         logger.debug('L3_token:{}'.format(self.L3_token))
         if '#token#' in test_info['headers']:
             test_info['headers'] = test_info['headers'].replace('#token#', self.L3_token)
-
-
 
         headers = json.loads(test_info['headers'])
 

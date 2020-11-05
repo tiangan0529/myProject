@@ -136,7 +136,6 @@ class Handler:
         return member_info
 
 
-    #
     # def login1(self):
     #     '''
     #     账号登录，提取用户的token
@@ -193,24 +192,10 @@ class Handler:
         pattern = r'#(.*?)#'
         while re.search(pattern,target):
             key = re.search(pattern,target).group(1)
-            value = getattr(self,key,'')
+            value = getattr(self,key, '')
             target = re.sub(pattern,str(value),target,1)
         return target
 
-    # def sendCode(self):
-    #     '''获取验证码'''
-    #     data = {
-    #         'loginUsername':13348974653,
-    #         'skey':8,
-    #         'yzmCode':3372,
-    #         'intlAreaCode':86
-    #     }
-    #     res = visit(
-    #         url= self.yaml['http']['base_url1'] + 'member/sendCode',
-    #         method='post',
-    #         data=data
-    #     )
-    #     print(res)
 
 if __name__ == '__main__':
     # data_path = Handler.conf.DATA_PATH

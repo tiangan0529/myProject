@@ -1,54 +1,43 @@
-# -*- coding by utf-8
-# Email   : tiangan_529@163.com
-# Author  : 田干
-# Time    : 2020/8/26 16:59
-# File    : test.py
-# import json
-#
-# print(int(9/2))
-#
-# print(round((99*0.08)*0.75))
-#
-#
-# a =1
-# b = 2
-# a,b = b,a
-#
-# print(a,b)
-#
-#
-# data = '''{
-#  "priceId": 716,
-#  "quantity": 2,
-#  "addrId": 950252,
-#  "memberCouponId":'{"user_id":"tg","age":18}'
-# }'''
-# # 先转化成json
-# all = eval(data)
-# # 再将第二层转换成json
-# a = json.loads(all['memberCouponId'])
-# # 转换后的json再赋值进去
-# all['memberCouponId'] =  a
-# print(all)
-#
-#
-#
-# info = '''{
-#       "devId": "6cb27196d876b821d7o9nl",
-#       "resetFactory": True,
-#       "options": '{
-#                  'clearDp': true,
-#                  'pushToApp': true
-#                 }'
-# }'''
-#
-# a = 142.020202
-#
-# print(int(a))
-#
+# # -*- coding by utf-8
+# # Email   : tiangan_529@163.com
+# # Author  : 田干
+# # Time    : 2020/8/26 16:59
+# # File    : test.py
+import unittest
+import ddt
+import json
+from middleware.handler import Handler
+from common.requests_handler import visit
 
-from selenium import webdriver
+hd = Handler()
+logger = hd.logger
+test_data = hd.excel.read_file('data')
 
 
-url = 'https://wenku.baidu.com/view/f4ab0502ff4733687e21af45b307e87100f6f853.html'
 
+@ddt.ddt
+class TestHT(unittest.TestCase):
+    '''passwordLogin'''
+
+    @ddt.data(*test_data)
+    def test_login(self,test_info):
+
+        logger.debug('用户参数：{}'.format(test_info))
+
+        headers = {'usertoken': 'e310b8e28f7cad52803cd836211cae65'}
+        data = {
+            'orderSn': test_info['orderSn'],
+            'realName': test_info['realName'],
+            'idNumber': test_info['idNumber']
+        }
+        # 访问接口
+        res = visit(
+            url= 'http://s.inglemirepharmmall.com/order/updateCustoms',
+            method= 'post',
+            headers= headers,
+            data= data
+        )
+        logger.info('第{}条的响应是：{}'.format(test_info['case_id'], res['msg']))
+
+if __name__ == '__main__':
+    unittest.main()

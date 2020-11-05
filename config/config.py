@@ -24,5 +24,5 @@ DATA_PATH = os.path.join(ROOT_PATH,'data')
 # 日志数据路径
 LOG_PATH = os.path.join(ROOT_PATH,'logs')
 
-# host地址
+# 地址
 HOST = 'https://test.api.inglemirepharmmall.com/'

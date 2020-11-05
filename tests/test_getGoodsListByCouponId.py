@@ -31,7 +31,6 @@ class TestGetGoodsListByCouponId(unittest.TestCase):
     def test_getGoodsListByCouponId(self,test_info):
         '''根据优惠券id获取商品'''
 
-
         # 替换参数化数据
         if "#invalidCouponId#" in test_info['data']:
             # 查询状态为失效的couponID
